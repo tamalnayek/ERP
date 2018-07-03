@@ -26,14 +26,19 @@ import android.widget.Toast;
 import com.istakip.AlinanGorevler.NavAlinanGorevlerim;
 import com.istakip.VerilenGorevler.NavVerilenGorevler;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.PropertyInfo;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapPrimitive;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
+import org.xmlpull.v1.XmlPullParserException;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -110,7 +115,7 @@ public class NavYeniGorevEkle extends Activity {
                 if (edittextGorevAdi.equals("") || edittextGorevAdi.equals(null) ||
                         edittextGorevDetayi.equals("") || edittextGorevDetayi.equals(null)
                         || gorevBitis.equals("") || gorevBitis.equals(null)) {
-                    Toast.makeText(NavYeniGorevEkle.this, "Boş Alanları Doldurunuz", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(NavYeniGorevEkle.this, "Boş Alanları Doldurunuz!", Toast.LENGTH_SHORT).show();
                 } else {
                     Log.e("Baslangic", baslangic);
                     Log.e("Bitis", gorevBitis);
@@ -142,7 +147,7 @@ public class NavYeniGorevEkle extends Activity {
         proje_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                projeAdi = projectName.get(position);
+                projeAdi =projectName.get(position);
                 projeId = projectId.get(position);
             }
 
@@ -215,7 +220,7 @@ public class NavYeniGorevEkle extends Activity {
 
     }
 
-    private class AsynCallYeniGorev extends AsyncTask<String, Void, Void> {
+     private class AsynCallYeniGorev extends AsyncTask<String, Void, Void> {
 
         @Override
         protected Void doInBackground(String... params) {

@@ -92,8 +92,7 @@ public class AlinanIsAkislari extends AppCompatActivity {
                 startActivity(new Intent(AlinanIsAkislari.this, ImageUpload.class));
             }
         });
-    
-        Toast.makeText(AlinanIsAkislari.this, text_gorevGorevId, Toast.LENGTH_SHORT).show();
+
         list_is_akisi = (ListView) findViewById(R.id.list_view_is_akislari);
 
         yeni_gorev_adim = (EditText) findViewById(R.id.yeni_gorev_adim);

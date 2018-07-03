@@ -32,9 +32,11 @@ import com.squareup.picasso.Picasso;
 
 import io.github.yavski.fabspeeddial.FabSpeedDial;
 
+import static com.istakip.LoginScreen.editor;
 import static com.istakip.LoginScreen.kb_mail;
 import static com.istakip.LoginScreen.kb_profil_adi;
 import static com.istakip.LoginScreen.kb_profil_url;
+import static com.istakip.LoginScreen.pref;
 
 public class Navigation_Drawer extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -158,9 +160,11 @@ public class Navigation_Drawer extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.log_out) {
+
             finish();
             getFragmentManager().popBackStack();
             System.exit(0);
+
             return true;
         }
 

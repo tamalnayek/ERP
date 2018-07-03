@@ -291,7 +291,6 @@ public class NavAlinanGorevlerim extends Fragment {
                     text_gorevReferans = (String) obj.get("Gorev_Referans");
                     text_oncelikDurumu = (String) obj.get("Oncelik_Durumu");
                     text_gorevGorevId = (String) obj.get("Gorev_Id");
-                    Toast.makeText(getActivity(), text_gorevGorevId, Toast.LENGTH_LONG).show();
                     startActivity(new Intent(getActivity(), AlinanIsAkislari.class));
 
                 }

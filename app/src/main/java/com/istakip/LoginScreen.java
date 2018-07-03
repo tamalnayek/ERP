@@ -1,9 +1,11 @@
 package com.istakip;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.os.AsyncTask;
@@ -17,7 +19,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -35,25 +39,28 @@ import org.xmlpull.v1.XmlPullParserException;
 import java.io.IOException;
 import java.util.ArrayList;
 
-;
-
 public class LoginScreen extends AppCompatActivity {
 
     private static final int REQUEST_CODE = 1;
     private static final String TAG = "PERMISSONS";
     public static String loginStatus;
     public static String kb_profil_adi, kb_mail, kb_profil_url;
+    static SharedPreferences pref;
+    static SharedPreferences.Editor editor;
     static String users_Kullanici_ID;
     static String users_Profil_Adi;
     static String usersProjectId;
     static String usersProjectName;
-    static ArrayList<String> userList, userId, projectId, projectName, menuUserList, menuMailList, menuUrlList;
+    static ArrayList<String> userList, userId, menuUserList, menuMailList, menuUrlList;
+    static ArrayList<String> projectId, projectName;
     static String profil_adi, mail, profil_url;
+    CheckBox ch;
     String userName, userPassword;
     EditText etUsername, etPassword;
     Button bLogin;
     LinearLayout linlaHeaderProgress;
     IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+    private boolean saveLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +71,21 @@ public class LoginScreen extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         verifyPermissons();
+
+        ch = (CheckBox) findViewById(R.id.ch_rememberme);
+
+        //    pref = getApplicationContext().getSharedPreferences(loginStatus, MODE_PRIVATE);
+        //    blNagSetting = pref.getBoolean("boolean", false);
+        //
+        //    if (blNagSetting == true) {
+        //
+        //        Intent startMainPage = new Intent(LoginScreen.this, Navigation_Drawer.class);
+        //        startMainPage.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        //
+        //        startActivity(startMainPage);
+        //        finish();
+        //    }
+
 
         userList = new ArrayList<>();
         userId = new ArrayList<>();
@@ -80,6 +102,16 @@ public class LoginScreen extends AppCompatActivity {
 
         linlaHeaderProgress = (LinearLayout) findViewById(R.id.linlaHeaderProgress);
 
+        pref = getSharedPreferences("loginPrefs", MODE_PRIVATE);
+        editor = pref.edit();
+
+        saveLogin = pref.getBoolean("saveLogin", false);
+        if (saveLogin == true) {
+            etUsername.setText(pref.getString("username", ""));
+            etPassword.setText(pref.getString("password", ""));
+            ch.setChecked(true);
+        }
+
         bLogin = (Button) findViewById(R.id.bLogin);
         bLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,8 +120,21 @@ public class LoginScreen extends AppCompatActivity {
                 if (etUsername.getText().length() != 0 && etUsername.getText().toString() != "") {
                     if (etPassword.getText().length() != 0 && etPassword.getText().toString() != "") {
 
+
                         userName = etUsername.getText().toString();
                         userPassword = etPassword.getText().toString();
+
+                        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(etUsername.getWindowToken(), 0);
+                        if (ch.isChecked()) {
+                            editor.putBoolean("saveLogin", true);
+                            editor.putString("username", userName);
+                            editor.putString("password", userPassword);
+                            editor.commit();
+                        } else {
+                            editor.clear();
+                            editor.commit();
+                        }
 
                         // receiver = new NetworkReceiver(); // Network eski kodlar
                         //  registerReceiver(receiver, filter);
@@ -112,7 +157,7 @@ public class LoginScreen extends AppCompatActivity {
         if (ContextCompat.checkSelfPermission(this.getApplicationContext(), permissions[0]) != PackageManager.PERMISSION_GRANTED
                 && ContextCompat.checkSelfPermission(this.getApplicationContext(), permissions[1]) != PackageManager.PERMISSION_GRANTED
                 && ContextCompat.checkSelfPermission(this.getApplicationContext(), permissions[2]) != PackageManager.PERMISSION_GRANTED) {
-           ActivityCompat.requestPermissions(LoginScreen.this, permissions,REQUEST_CODE);
+            ActivityCompat.requestPermissions(LoginScreen.this, permissions, REQUEST_CODE);
         }
 
     }
@@ -225,6 +270,20 @@ public class LoginScreen extends AppCompatActivity {
             linlaHeaderProgress.setVisibility(View.GONE);
             // Toast.makeText(LoginScreen.this, loginStatus, Toast.LENGTH_LONG).show();
             if (!loginStatus.equals("Hatalı Kullanıcı Adı veya Şifre!")) {
+
+                // editor = pref.edit();
+                // editor.putString("loginStatus", loginStatus);
+                // loginStatus = pref.getString("loginStatus", null);
+
+                // if (ch.isChecked()) {
+                //     Toast.makeText(LoginScreen.this, "Checkhed :" + loginStatus, Toast.LENGTH_SHORT).show();
+                //     editor.putBoolean("boolean", true);
+                // } else {
+                //     Toast.makeText(LoginScreen.this, "Not Checked :" + loginStatus, Toast.LENGTH_SHORT).show();
+                //     editor.putBoolean("boolean", false);
+                // }
+
+                // editor.commit();
 
                 new WebServiceLoginUsers().execute();
 
@@ -447,8 +506,7 @@ public class LoginScreen extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             linlaHeaderProgress.setVisibility(View.VISIBLE);
-            etUsername.setText("");
-            etPassword.setText("");
         }
     }
+
 }

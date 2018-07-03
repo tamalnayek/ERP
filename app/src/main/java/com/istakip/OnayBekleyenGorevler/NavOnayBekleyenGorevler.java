@@ -272,7 +272,6 @@ public class NavOnayBekleyenGorevler extends Fragment {
                                 public void onClick(DialogInterface dialog, int which) {
                                     // String positionView = contactListOnay.get(position).toString();
                                     text_onay_gorev_id = (String) obj.get("Gorev_Id");
-                                    Toast.makeText(getContext(), text_onay_gorev_id, Toast.LENGTH_SHORT).show();
                                     new Gorev_KapatmaWebService().execute();
                                 }
                             })
@@ -374,12 +373,6 @@ public class NavOnayBekleyenGorevler extends Fragment {
 
                 Toast.makeText(getContext(), "Görev Onaylandı!", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(getContext(),Navigation_Drawer.class));
-
-              // Fragment fragment = new NavTamamlananGorevler();
-              // FragmentManager fragmentManager = getFragmentManager();
-              // FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-              // fragmentTransaction.replace(android.R.id.content,fragment);
-              // fragmentTransaction.commit();
 
             } else {
                 Toast.makeText(getContext(), "Lütfen Daha Sonra Tekrar Deneyiniz!", Toast.LENGTH_LONG).show();

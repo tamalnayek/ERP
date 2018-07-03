@@ -23,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.istakip.Navigation_Drawer;
+import com.istakip.NetworkReceiver;
 import com.istakip.R;
 import com.nbsp.materialfilepicker.MaterialFilePicker;
 import com.nbsp.materialfilepicker.ui.FilePickerActivity;
@@ -82,7 +83,7 @@ public class ImageUpload extends Activity {
             }
         });
         ivImage = (ImageView) findViewById(R.id.ivImage);
-        Toast.makeText(ImageUpload.this, text_gorevGorevId, Toast.LENGTH_SHORT).show();
+
         btnUpload = (Button) findViewById(R.id.btnUploadPhoto);
         btnUpload.setOnClickListener(new OnClickListener() {
             @Override
@@ -93,13 +94,7 @@ public class ImageUpload extends Activity {
                         upload_name = img_name.getText().toString();
                         upload_explanation = img_explanation.getText().toString();
 
-                        //Internet Kontrolu yazılacak
-
-                        if (isCheckedImage) {
-                            new Base64WS().execute();
-                        } else {
-                            new Base64File().execute();
-                        }
+                        checkNetwork();
 
                     } else {
                         Toast.makeText(ImageUpload.this, "Lütfen açıklama giriniz!", Toast.LENGTH_SHORT).show();
@@ -109,6 +104,47 @@ public class ImageUpload extends Activity {
                 }
             }
         });
+    }
+
+    private void checkNetwork() {
+        if (NetworkReceiver.getInstance(this).isOnline()) {
+
+            Log.v("Network Connection", "You are online!!!!");
+            if (isCheckedImage) {
+                new Base64WS().execute();
+            } else {
+                new Base64File().execute();
+            }
+
+        } else {
+            android.support.v7.app.AlertDialog.Builder builder;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                builder = new android.support.v7.app.AlertDialog.Builder(ImageUpload.this, android.R.style.Theme_Material_Dialog_Alert);
+            } else {
+                builder = new android.support.v7.app.AlertDialog.Builder(ImageUpload.this);
+            }
+
+            builder.setTitle("Hata")
+                    .setMessage("İnternet bağlantısı yok!")
+                    .setPositiveButton("Tekrar Dene", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            checkNetwork();
+                            dialog.cancel();
+                        }
+                    }).setNegativeButton("Kapat", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    finish();
+                    System.exit(0);
+                }
+            }).setIcon(R.drawable.nuclear_alert)
+                    .setCancelable(false)
+                    .show();
+
+            Log.e("Network Connection", "############################You are not online!!!!");
+        }
+
     }
 
     @Override
