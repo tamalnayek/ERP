@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="20dp"
+    android:clickable="false"
+    android:foreground="?selectableItemBackground"
+    android:itemTextAppearance="@android:style/TextAppearance.DeviceDefault.Widget.PopupMenu.Small"
+    card_view:cardBackgroundColor="#dcdcdc"
+    card_view:cardCornerRadius="12dp"
+    card_view:cardElevation="3dp"
+    card_view:cardPreventCornerOverlap="false"
+    card_view:cardUseCompatPadding="true"
+    card_view:contentPadding="4dp"
+    card_view:contentPaddingLeft="20dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginRight="5dp"
+        android:orientation="horizontal"
+        android:padding="3dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/verilen_list_profil_url"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_marginBottom="6dp"
+            android:paddingTop="@dimen/nav_header_vertical_spacing"
+            app:civ_border_color="@color/lightGrey"
+            app:civ_border_width="2dp" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|left"
+            android:orientation="vertical"
+            android:padding="3dp"
+            android:weightSum="1">
+
+            <TextView
+                android:id="@+id/verilen_list_gorev_alan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:text="Görevi Alan"
+                android:textColor="#343434"
+                android:textSize="15dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/verilen_list_gorev_adi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="sans-serif"
+                android:text="Görev Adı"
+                android:textColor="#343434"
+                android:textSize="15dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/verilen_list_tarih"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="sans-serif"
+                    android:text="Tarih"
+                    android:textColor="#343434"
+                    android:textSize="15dp" />
+
+
+                <RatingBar
+                    android:id="@+id/ratingbar_verilen"
+                    style="?android:attr/ratingBarStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="10dp"
+                    android:foregroundGravity="center"
+                    android:isIndicator="true"
+                    android:numStars="5"
+                    android:stepSize="1.0" />
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/fab_new_task"
+        android:icon="@drawable/ic_new_task"
+        android:title="Görev"/>
+
+    <item android:id="@+id/fab_image_upload"
+        android:icon="@drawable/ic_upload"
+        android:title="Döküman"/>
+
+</menu>

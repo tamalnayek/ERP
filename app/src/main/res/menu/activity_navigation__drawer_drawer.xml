@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Görevler">
+        <menu>
+            <item
+                android:id="@+id/nav_gorevlerim"
+                android:icon="@drawable/ic_alinan_mp"
+                android:title="Alınan Görevler" />
+
+            <item
+                android:id="@+id/nav_verilen_gorevler"
+                android:icon="@drawable/ic_verilen_mp"
+                android:title="Verilen Görevler" />
+
+            <item
+                android:id="@+id/nav_onay_bekleyen_gorevler"
+                android:icon="@drawable/ic_onay_mp"
+                android:title="Onay Bekleyenler" />
+
+            <item
+                android:id="@+id/nav_tamamlanan_gorevler"
+                android:icon="@drawable/ic_done_mp"
+                android:title="Tamamlananlar" />
+
+        </menu>
+    </item>
+
+    <group android:checkableBehavior="single">
+        <item android:title="Diğer">
+            <menu>
+                <item
+                    android:id="@+id/nav_projeler"
+                    android:icon="@drawable/ic_proje_mp"
+                    android:title="Projeler" />
+                <item
+                    android:id="@+id/nav_documentation"
+                    android:icon="@drawable/ic_dokuman_mp"
+                    android:title="Dokümanlar" />
+            </menu>
+        </item>
+
+    </group>
+</menu>
