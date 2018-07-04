@@ -60,15 +60,12 @@ public class TamamlananIsAkisi extends AppCompatActivity {
         list_tamamlanan_is_akisi = (ListView) findViewById(R.id.list_view_tamamlanan_is_akislari);
 
         checkNetwork();
-
-
     }
 
     private void checkNetwork() {
         if (NetworkReceiver.getInstance(TamamlananIsAkisi.this).isOnline()) {
 
             Log.v("Network Connection", "You are not online!!!!");
-
             new JListeleIsAkislari().execute();
 
         } else {
@@ -96,7 +93,6 @@ public class TamamlananIsAkisi extends AppCompatActivity {
             }).setIcon(R.drawable.nuclear_alert)
                     .setCancelable(false)
                     .show();
-
             Log.e("Network Connection", "############################You are not online!!!!");
         }
     }
@@ -187,7 +183,6 @@ public class TamamlananIsAkisi extends AppCompatActivity {
                     tamamlananhashIsAkisi.put("Gorevi_Yapan_Profil_Url", Tamamlanan_IsAkisi_Gorevi_Yapan_Profil_URL);
 
                     contactListTamamlananIsAkislari.add(tamamlananhashIsAkisi);
-
                 }
 
             } catch (IOException e) {

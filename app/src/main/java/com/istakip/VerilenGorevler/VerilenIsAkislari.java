@@ -42,7 +42,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.istakip.LoginScreen.loginStatus;
+import static com.istakip.LoginWebServiceQuery.Astatus;
 import static com.istakip.VerilenGorevler.NavVerilenGorevler.text_verilen_gorev_id;
 import static com.istakip.VerilenGorevler.NavVerilenGorevler.text_verilen_gorev_referans;
 import static com.istakip.VerilenGorevler.NavVerilenGorevler.text_verilen_oncelik_durumu;
@@ -52,13 +52,14 @@ public class VerilenIsAkislari extends AppCompatActivity {
     String Verilen_Gorev_Id, Verilen_Adim_Id, Verilen_Master_Id, Verilen_Slave_Id, Verilen_Gorevi_Veren, Verilen_Gorevi_Alan, Verilen_Profil_Adi,
             Verilen_Gorev_Adi, Verilen_Gorev_Detay, Verilen_Oncelik_Durumu, Verilen_Yapilan_Is, Verilen_Gorev_Adim_Yapilan_Tarih, Verilen_Gorev_Adim_Yapilan_Saat,
             Verilen_Proje_Id, Verilen_Gorevi_Yapan, Verilen_Gorevi_Yapan_Profil_URL;
+    String str_yeni_görev;
+    String yeni_is_durum;
 
     ArrayList<HashMap<String, String>> contactVerilenListIsAkislari;
     ListView verilen_list_is_akisi;
     HashMap<String, String> Verilen_hashIsAkisi;
-    Button btn_yeni_gorev_adim_verilen, image_upload;
-    String str_yeni_görev;
-    String yeni_is_durum;
+
+    Button btn_yeni_gorev_adim_verilen;
     EditText yeni_gorev_adim_verilen;
     FloatingActionButton fab;
 
@@ -71,14 +72,6 @@ public class VerilenIsAkislari extends AppCompatActivity {
 
         verilen_list_is_akisi = (ListView) findViewById(R.id.list_view_verilen_is_akislari);
         yeni_gorev_adim_verilen = (EditText) findViewById(R.id.yeni_gorev_adim_verilen);
-
-        // image_upload = (Button) findViewById(R.id.image_upload_verilen);
-        // image_upload.setOnClickListener(new View.OnClickListener() {
-        //     @Override
-        //     public void onClick(View v) {
-        //         startActivity(new Intent(VerilenIsAkislari.this, ImageUpload.class));
-        //     }
-        // });
 
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -109,7 +102,6 @@ public class VerilenIsAkislari extends AppCompatActivity {
         if (NetworkReceiver.getInstance(this).isOnline()) {
 
             Log.v("Network Connection", "You are not online!!!!");
-
             new WebServiceYeniGörevAdımEkle().execute();
 
         } else {
@@ -137,7 +129,6 @@ public class VerilenIsAkislari extends AppCompatActivity {
             }).setIcon(R.drawable.nuclear_alert)
                     .setCancelable(false)
                     .show();
-
             Log.e("Network Connection", "############################You are not online!!!!");
         }
     }
@@ -228,9 +219,7 @@ public class VerilenIsAkislari extends AppCompatActivity {
                     Verilen_hashIsAkisi.put("Gorevi_Yapan_Profil_Url", Verilen_Gorevi_Yapan_Profil_URL);
 
                     contactVerilenListIsAkislari.add(Verilen_hashIsAkisi);
-                    //sil_gorev_WS.add(Adim_Id);
                 }
-
             } catch (IOException e) {
                 Log.e("1", "do");
                 e.printStackTrace();
@@ -241,7 +230,6 @@ public class VerilenIsAkislari extends AppCompatActivity {
                 Log.e("3", "do");
                 e.printStackTrace();
             }
-
             return null;
         }
 
@@ -291,7 +279,7 @@ public class VerilenIsAkislari extends AppCompatActivity {
             request.addProperty(passPI);
 
             gorevi_yapan_kisi_IDPI.setName("Gorevi_Yapan_Kisi_Id");
-            gorevi_yapan_kisi_IDPI.setValue(loginStatus);
+            gorevi_yapan_kisi_IDPI.setValue(Astatus);
             gorevi_yapan_kisi_IDPI.setType(Integer.class);
 
             request.addProperty(gorevi_yapan_kisi_IDPI);
@@ -308,7 +296,6 @@ public class VerilenIsAkislari extends AppCompatActivity {
 
                 SoapPrimitive response = (SoapPrimitive) envelope.getResponse();
                 yeni_is_durum = response.toString();
-                // Toast.makeText(getBaseContext(),text_verilen_gorev_id,Toast.LENGTH_SHORT).show();
             } catch (IOException e) {
                 Log.e("1", "IOException");
                 e.printStackTrace();
@@ -316,7 +303,6 @@ public class VerilenIsAkislari extends AppCompatActivity {
                 Log.e("2", "XmlPullParserException");
                 e.printStackTrace();
             }
-
             return null;
         }
 

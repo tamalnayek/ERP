@@ -2,15 +2,11 @@ package com.istakip;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
@@ -23,42 +19,38 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.istakip.AlinanGorevler.NavAlinanGorevlerim;
-import com.istakip.VerilenGorevler.NavVerilenGorevler;
-
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.PropertyInfo;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapPrimitive;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
-import org.xmlpull.v1.XmlPullParserException;
 
-import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-import static com.istakip.LoginScreen.loginStatus;
-import static com.istakip.LoginScreen.projectId;
-import static com.istakip.LoginScreen.projectName;
-import static com.istakip.LoginScreen.userId;
-import static com.istakip.LoginScreen.userList;
+import static com.istakip.LoginWebServiceQuery.Astatus;
+import static com.istakip.LoginWebServiceQuery.projectId;
+import static com.istakip.LoginWebServiceQuery.projectName;
+import static com.istakip.LoginWebServiceQuery.userId;
+import static com.istakip.LoginWebServiceQuery.userList;
 
 public class NavYeniGorevEkle extends Activity {
 
-    Spinner spinner;
     ArrayAdapter<CharSequence> adapter;
+
     String personelAdi, projeId, projeAdi, oncelik, edittextGorevAdi, edittextGorevDetayi, gorevBitis;
+    String gorevDurumu;
     Integer personelId;
+
     Button yeniGorevKaydet;
     EditText yeni_gorev_adi, yeni_gorev_detayi, yeni_gorev_tarih_Edittext;
-    String gorevDurumu;
+
     LinearLayout nav_yenı_gorev_linear_layout;
+    Spinner spinner;
+
     Calendar takvim;
     String myFormat = "dd.MM.yyyy";
     String baslangic;
@@ -121,7 +113,6 @@ public class NavYeniGorevEkle extends Activity {
                     Log.e("Bitis", gorevBitis);
                     checkNetwork();
                 }
-
             }
         });
 
@@ -147,7 +138,7 @@ public class NavYeniGorevEkle extends Activity {
         proje_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                projeAdi =projectName.get(position);
+                projeAdi = projectName.get(position);
                 projeId = projectId.get(position);
             }
 
@@ -177,7 +168,6 @@ public class NavYeniGorevEkle extends Activity {
 
     private void updateLabel() {
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
-
         yeni_gorev_tarih_Edittext.setText(sdf.format(takvim.getTime()));
     }
 
@@ -186,7 +176,6 @@ public class NavYeniGorevEkle extends Activity {
         if (NetworkReceiver.getInstance(this).isOnline()) {
 
             Log.v("Network Connection", "You are online!!!!");
-
             new AsynCallYeniGorev().execute();
 
         } else {
@@ -217,10 +206,9 @@ public class NavYeniGorevEkle extends Activity {
 
             Log.e("Network Connection", "############################You are not online!!!!");
         }
-
     }
 
-     private class AsynCallYeniGorev extends AsyncTask<String, Void, Void> {
+    private class AsynCallYeniGorev extends AsyncTask<String, Void, Void> {
 
         @Override
         protected Void doInBackground(String... params) {
@@ -243,7 +231,7 @@ public class NavYeniGorevEkle extends Activity {
             PropertyInfo uBitisTarih = new PropertyInfo();
 
             uMasterIdPI.setName("Master_Id");
-            uMasterIdPI.setValue(loginStatus);
+            uMasterIdPI.setValue(Astatus);
             uMasterIdPI.setType(Integer.class);
 
             uSlaveIdPI.setName("Slave_Id");
@@ -314,7 +302,6 @@ public class NavYeniGorevEkle extends Activity {
             if (gorevDurumu.equals("0")) {
                 Toast.makeText(getBaseContext(), "Yeni Görev Kaydedildi!", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(NavYeniGorevEkle.this, Navigation_Drawer.class));
-
             } else {
                 Toast.makeText(getBaseContext(), "Lütfen Daha Sonra Tekrar Deneyiniz!", Toast.LENGTH_LONG).show();
             }

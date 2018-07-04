@@ -11,8 +11,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
@@ -32,7 +30,6 @@ import android.widget.Toast;
 import com.istakip.Navigation_Drawer;
 import com.istakip.NetworkReceiver;
 import com.istakip.R;
-import com.istakip.TamamlananGorevler.NavTamamlananGorevler;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -51,7 +48,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.istakip.LoginScreen.loginStatus;
+import static com.istakip.LoginWebServiceQuery.Astatus;
 
 public class NavOnayBekleyenGorevler extends Fragment {
 
@@ -66,6 +63,7 @@ public class NavOnayBekleyenGorevler extends Fragment {
     HashMap<String, String> hashOnay;
     ArrayList<HashMap<String, String>> contactListOnay;
     ListView listOnayGorev;
+
     RatingBar rating_Onay;
     LinearLayout nav_onay_linear_layout;
     SwipeRefreshLayout swipeRefreshLayout;
@@ -99,8 +97,6 @@ public class NavOnayBekleyenGorevler extends Fragment {
                 }, 1000);
             }
         });
-
-
         return myView;
     }
 
@@ -108,9 +104,7 @@ public class NavOnayBekleyenGorevler extends Fragment {
         if (NetworkReceiver.getInstance(getContext()).isOnline()) {
 
             Log.v("Network Connection", "You are not online!!!!");
-
             new TamamlananWebService().execute();
-
         } else {
             AlertDialog.Builder builder;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -155,7 +149,7 @@ public class NavOnayBekleyenGorevler extends Fragment {
             PropertyInfo passPI = new PropertyInfo();
 
             masterIdPI.setName("Master_Id");
-            masterIdPI.setValue(loginStatus);
+            masterIdPI.setValue(Astatus);
             masterIdPI.setType(String.class);
 
             request.addProperty(masterIdPI);
@@ -217,7 +211,6 @@ public class NavOnayBekleyenGorevler extends Fragment {
 
                     contactListOnay.add(hashOnay);
                 }
-
             } catch (IOException e) {
                 Log.e("1", "IOException");
                 e.printStackTrace();
@@ -228,7 +221,6 @@ public class NavOnayBekleyenGorevler extends Fragment {
                 Log.e("3", "JSONException");
                 e.printStackTrace();
             }
-
             return null;
         }
 
@@ -254,8 +246,8 @@ public class NavOnayBekleyenGorevler extends Fragment {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
 
-
                     final android.app.AlertDialog.Builder builder;
+
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         builder = new android.app.AlertDialog.Builder(getContext(), android.R.style.Theme_Material_Dialog_Alert);
                     } else {
@@ -264,13 +256,11 @@ public class NavOnayBekleyenGorevler extends Fragment {
 
                     final HashMap<String, Object> obj = (HashMap<String, Object>) listOnayGorev.getItemAtPosition(position);
 
-
                     builder.setTitle("Onayla")
                             .setMessage("Emin Misiniz?")
                             .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    // String positionView = contactListOnay.get(position).toString();
                                     text_onay_gorev_id = (String) obj.get("Gorev_Id");
                                     new Gorev_KapatmaWebService().execute();
                                 }
@@ -310,7 +300,6 @@ public class NavOnayBekleyenGorevler extends Fragment {
                         .setCancelable(false)
                         .show();
             }
-            //Toast.makeText(getActivity(),contactListVerilen.toString(),Toast.LENGTH_LONG).show();
             ListAdapter listAdapter = new MyAdapterOnay(getActivity(), contactListOnay, R.layout.activity_list_onay_bekleyen_gorevler,
                     new String[]{"Gorevi_Alan", "Gorev_Adi", "Tarih", "Oncelik_Durumu"},
                     new int[]{R.id.onay_list_gorev_alan, R.id.onay_list_gorev_adi, R.id.onay_list_tarih, R.id.ratingbar_onay});
@@ -322,6 +311,7 @@ public class NavOnayBekleyenGorevler extends Fragment {
     }
 
     private class Gorev_KapatmaWebService extends AsyncTask<String, Void, Void> {
+
         @Override
         protected Void doInBackground(String... params) {
             String NAMESPACE = "http://tempuri.org/";
@@ -361,7 +351,6 @@ public class NavOnayBekleyenGorevler extends Fragment {
                 kapat_gorev_deneme = (response.toString());
 
             } catch (Exception e) {
-                //LoginScreen.errored = true;
                 e.printStackTrace();
             }
             return null;
@@ -370,9 +359,8 @@ public class NavOnayBekleyenGorevler extends Fragment {
         @Override
         protected void onPostExecute(Void aVoid) {
             if (kapat_gorev_deneme.equals("0")) {
-
                 Toast.makeText(getContext(), "Görev Onaylandı!", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(getContext(),Navigation_Drawer.class));
+                startActivity(new Intent(getContext(), Navigation_Drawer.class));
 
             } else {
                 Toast.makeText(getContext(), "Lütfen Daha Sonra Tekrar Deneyiniz!", Toast.LENGTH_LONG).show();
@@ -416,10 +404,8 @@ public class NavOnayBekleyenGorevler extends Fragment {
                     Picasso.with(v.getContext()).load("http://" + url).into(img); //Ekranda göster
                 }
             }
-
             return v;
         }
-
     }
 
     private class MyBinder implements SimpleAdapter.ViewBinder { //Rating Bar update value from webservice
@@ -438,6 +424,5 @@ public class NavOnayBekleyenGorevler extends Fragment {
             return false;
         }
     }
-
 }
 

@@ -37,24 +37,24 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import static com.istakip.LoginScreen.loginStatus;
+import static com.istakip.LoginWebServiceQuery.Astatus;
 import static com.istakip.VerilenGorevler.NavVerilenGorevler.text_verilen_gorev_id;
 
 
 public class ImageUploadVerilen extends Activity {
 
     String encodedImage;
-    byte b[];
     String status;
+    String upload_name, upload_explanation;
+    byte b[];
     File destination;
     FileOutputStream fo;
     Button btnUpload;
     EditText img_name, img_explanation;
-    String upload_name, upload_explanation;
-    private int REQUEST_CAMERA = 0, SELECT_FILE = 1;
+    private String userChoosenTask;
     private Button btnSelect;
     private ImageView ivImage;
-    private String userChoosenTask;
+    private int REQUEST_CAMERA = 0, SELECT_FILE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -143,7 +143,7 @@ public class ImageUploadVerilen extends Activity {
     private void galleryIntent() {
         Intent intent = new Intent();
         intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);//
+        intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Select File"), SELECT_FILE);
     }
 
@@ -174,7 +174,6 @@ public class ImageUploadVerilen extends Activity {
         destination = new File(Environment.getExternalStorageDirectory(),
                 System.currentTimeMillis() + ".jpg");
 
-        // FileOutputStream fo;
         try {
             destination.createNewFile();
             fo = new FileOutputStream(destination);
@@ -184,15 +183,12 @@ public class ImageUploadVerilen extends Activity {
             encodedImage = Base64.encodeToString(b, Base64.NO_WRAP);
             Log.e("Encoded Base64 Camera", encodedImage);
 
-
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         ivImage.setImageBitmap(thumbnail);
-
     }
 
     @SuppressWarnings("deprecation")
@@ -212,7 +208,6 @@ public class ImageUploadVerilen extends Activity {
                 e.printStackTrace();
             }
         }
-
         ivImage.setImageBitmap(bm);
     }
 
@@ -265,7 +260,7 @@ public class ImageUploadVerilen extends Activity {
             request.addProperty(uNamePI);
 
             passPI.setName("Personel_Id");
-            passPI.setValue(loginStatus);
+            passPI.setValue(Astatus);
             passPI.setType(String.class);
 
             request.addProperty(passPI);
@@ -313,5 +308,4 @@ public class ImageUploadVerilen extends Activity {
             }
         }
     }
-
 }

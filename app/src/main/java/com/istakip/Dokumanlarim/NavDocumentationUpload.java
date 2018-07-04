@@ -39,7 +39,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import static android.content.Context.DOWNLOAD_SERVICE;
-import static com.istakip.LoginScreen.loginStatus;
+import static com.istakip.LoginWebServiceQuery.Astatus;
 
 /**
  * Created by Ask on 13.9.2017.
@@ -49,13 +49,17 @@ public class NavDocumentationUpload extends Fragment {
     public static ArrayList<HashMap<String, String>> dokumanlarList;
     static String dokuman_adi, dokuman_aciklama, dokuman_tarihi, dokuman_URL, dokuman_uzanti, dokuman_indir;
     static String text_file_URL;
+    String indir_file_URL;
+
+    ArrayList<String> indir_file_list;
+    HashMap<String, String> contact_doc;
+
     View myView;
     ListView listView;
+
     LinearLayout nav_documentation_linear_layout;
     SwipeRefreshLayout swipeRefreshLayout;
-    ArrayList<String> indir_file_list;
-    String indir_file_URL;
-    HashMap<String, String> contact_doc;
+
     private DownloadManager downloadManager;
 
     @Override
@@ -89,14 +93,12 @@ public class NavDocumentationUpload extends Fragment {
                 }, 1000);
             }
         });
-
         return myView;
     }
 
     private void checkNetwork() {
 
         if (NetworkReceiver.getInstance(getContext()).isOnline()) {
-
             Log.v("Network Connection", "You are online!!!!");
             new WebServiceDocumentation().execute();
 
@@ -125,10 +127,8 @@ public class NavDocumentationUpload extends Fragment {
             }).setIcon(R.drawable.nuclear_alert)
                     .setCancelable(false)
                     .show();
-
             Log.e("Network Connection", "############################You are not online!!!!");
         }
-
     }
 
     private class WebServiceDocumentation extends AsyncTask<String, Void, Void> {
@@ -147,7 +147,7 @@ public class NavDocumentationUpload extends Fragment {
             PropertyInfo passPI = new PropertyInfo();
 
             masterIdPI.setName("Kullanici_Id");
-            masterIdPI.setValue(loginStatus);
+            masterIdPI.setValue(Astatus);
             masterIdPI.setType(String.class);
 
             request.addProperty(masterIdPI);
@@ -172,6 +172,7 @@ public class NavDocumentationUpload extends Fragment {
                 String responseJSON = response.toString();
                 JSONArray jsonArray = new JSONArray(responseJSON);
                 final int numberOfItemsInPesp = responseJSON.length();
+
                 for (int i = 0; i < numberOfItemsInPesp; i++) {
 
                     dokuman_adi = jsonArray.getJSONObject(i).getString("Dokuman_Adi");
@@ -192,7 +193,6 @@ public class NavDocumentationUpload extends Fragment {
                     dokumanlarList.add(contact_doc);
                     indir_file_list.add(dokuman_indir);
                 }
-
             } catch (IOException e) {
                 Log.e("1", "IOException WebServiceDocumentation");
                 e.printStackTrace();
@@ -203,7 +203,6 @@ public class NavDocumentationUpload extends Fragment {
                 Log.e("3", "JSONException WebServiceDocumentation");
                 e.printStackTrace();
             }
-
             return null;
         }
 
@@ -217,7 +216,6 @@ public class NavDocumentationUpload extends Fragment {
                 } else {
                     builder = new android.support.v7.app.AlertDialog.Builder(getContext());
                 }
-
                 builder.setTitle("Oops")
                         .setMessage("Henüz dosya bulunmamaktadır!")
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
@@ -276,17 +274,12 @@ public class NavDocumentationUpload extends Fragment {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     indir_file_URL = indir_file_list.get(position).toString();
-                                    //Toast.makeText(getContext(), "http://" + indir_file_URL, Toast.LENGTH_SHORT).show();
 
                                     downloadManager = (DownloadManager) getActivity().getSystemService(DOWNLOAD_SERVICE);
-                                    //IntentFilter filter = new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE);
-                                    //registerReceiver(downloadReceiver, filter);
                                     Uri uri = Uri.parse("http://" + indir_file_URL);
                                     DownloadManager.Request request = new DownloadManager.Request(uri);
                                     request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
                                     Long reference = downloadManager.enqueue(request);
-
-                                    //document_downloadId = DownloadFile(uri);
 
                                 }
                             })
@@ -299,12 +292,12 @@ public class NavDocumentationUpload extends Fragment {
                             .setIcon(R.drawable.nuclear_alert)
                             .setCancelable(false)
                             .show();
-
                 }
             });
         }
     }
-    /*
+}
+  /*
     private long DownloadFile(Uri uri){
         long downloadReference = 0;
 
@@ -337,5 +330,4 @@ public class NavDocumentationUpload extends Fragment {
             }
         }
     };*/
-}
 

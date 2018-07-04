@@ -55,9 +55,11 @@ public class ProjelerimGorevler extends AppCompatActivity {
             pojelerim_gorevler_Is_Admin, pojelerim_gorevler_Gorev_Adi, pojelerim_gorevler_Oncelik_Durumu, pojelerim_gorevler_Gorev_Detay, pojelerim_gorevler_Tarih,
             pojelerim_gorevler_Bitis_Tarihi, pojelerim_gorevler_Proje_Id, pojelerim_gorevler_Proje_Adi, pojelerim_gorevler_Gorev_Referans, pojelerim_gorevler_Okundu,
             pojelerim_gorevler_Profil_Url, pojelerim_gorevler_Beklemede, pojelerim_gorevler_Kapandi, pojelerim_gorevler_Kapatma_Bekliyor;
+
     ArrayList<HashMap<String, String>> contactListProjelerGorev;
     HashMap<String, String> hashProjelerGorev;
     ListView listProjelerGorev;
+
     RatingBar rating_ProjelerGorev;
     LinearLayout nav_projelerGorev_linear_layout;
     SwipeRefreshLayout swipeRefreshLayout;
@@ -98,7 +100,6 @@ public class ProjelerimGorevler extends AppCompatActivity {
         if (NetworkReceiver.getInstance(ProjelerimGorevler.this).isOnline()) {
 
             Log.v("Network Connection", "You are not online!!!!");
-
             new JListeleGorevlerimProjeyeGore().execute();
 
         } else {
@@ -129,8 +130,6 @@ public class ProjelerimGorevler extends AppCompatActivity {
 
             Log.e("Network Connection", "############################You are not online!!!!");
         }
-
-
     }
 
     public class JListeleGorevlerimProjeyeGore extends AsyncTask<String, Void, Void> {
@@ -257,7 +256,6 @@ public class ProjelerimGorevler extends AppCompatActivity {
                         .setCancelable(false)
                         .show();
             }
-            //Toast.makeText(getActivity(),contactListVerilen.toString(),Toast.LENGTH_LONG).show();
             ListAdapter listAdapter = new MyAdapterProjeGorev(ProjelerimGorevler.this, contactListProjelerGorev, R.layout.activity_list_projelerim_gorevler,
                     new String[]{"Gorevi_Alan", "Gorev_Adi", "Tarih", "Oncelik_Durumu"},
                     new int[]{R.id.projelerimGorev_list_gorev_veren, R.id.projelerimGorev_list_gorev_adi, R.id.projelerimGorev_list_tarih, R.id.ratingbar_projelerimGorev});
@@ -335,7 +333,6 @@ public class ProjelerimGorevler extends AppCompatActivity {
                     Picasso.with(v.getContext()).load("http://" + url).into(img);
                 }
             }
-
             return v;
         }
     }

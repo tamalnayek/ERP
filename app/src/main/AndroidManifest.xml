@@ -78,6 +78,7 @@
         <activity
             android:name=".OnayBekleyenGorevler.NavOnayBekleyenGorevler"
             android:screenOrientation="portrait" />
+        <activity android:name=".LoginWebServiceQuery"></activity>
     </application>
 
 </manifest>

@@ -44,27 +44,31 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import static com.istakip.AlinanGorevler.NavAlinanGorevlerim.text_gorevGorevId;
-import static com.istakip.LoginScreen.loginStatus;
-
+import static com.istakip.LoginWebServiceQuery.Astatus;
 
 public class ImageUpload extends Activity {
 
     String encodedImage;
-    byte b[];
     String status, filestatus;
-    File destination;
-    FileOutputStream fo;
-    Button btnUpload;
-    EditText img_name, img_explanation;
     String upload_name, upload_explanation;
     String filePath;
     String encodedBase64 = null;
     String extension = null;
+    private String userChoosenTask;
+
+    byte b[];
+
+    File destination;
+    FileOutputStream fo;
+
+    private Button btnSelect;
+    Button btnUpload;
+    EditText img_name, img_explanation;
+
     Boolean isCheckedImage = false;
     private int REQUEST_CAMERA = 0, SELECT_FILE = 1;
-    private Button btnSelect;
+
     private ImageView ivImage;
-    private String userChoosenTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,7 +127,6 @@ public class ImageUpload extends Activity {
             } else {
                 builder = new android.support.v7.app.AlertDialog.Builder(ImageUpload.this);
             }
-
             builder.setTitle("Hata")
                     .setMessage("İnternet bağlantısı yok!")
                     .setPositiveButton("Tekrar Dene", new DialogInterface.OnClickListener() {
@@ -141,10 +144,8 @@ public class ImageUpload extends Activity {
             }).setIcon(R.drawable.nuclear_alert)
                     .setCancelable(false)
                     .show();
-
             Log.e("Network Connection", "############################You are not online!!!!");
         }
-
     }
 
     @Override
@@ -232,17 +233,14 @@ public class ImageUpload extends Activity {
                 FileInputStream fileInputStreamReader = new FileInputStream(originalFile);
                 byte[] bytes = new byte[(int) originalFile.length()];
                 fileInputStreamReader.read(bytes);
-                // encodedBase64 = new String(Base64.encodeToString(bytes,Base64.NO_WRAP));
 
                 encodedBase64 = Base64.encodeToString(bytes, Base64.NO_WRAP);
                 extension = filePath.substring(filePath.lastIndexOf("."));
-
 
                 Log.e("encodedBase64", encodedBase64);
                 Log.e("extension", extension);
                 isCheckedImage = false;
                 ivImage.setImageDrawable(getResources().getDrawable(R.mipmap.ic_file));
-                // new Base64File().execute(); // Run File Upload Service
 
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
@@ -258,11 +256,10 @@ public class ImageUpload extends Activity {
         }
     }
 
-
     private void galleryIntent() {
         Intent intent = new Intent();
         intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);//
+        intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Select File"), SELECT_FILE);
     }
 
@@ -281,7 +278,6 @@ public class ImageUpload extends Activity {
         destination = new File(Environment.getExternalStorageDirectory(),
                 System.currentTimeMillis() + ".jpg");
 
-        // FileOutputStream fo;
         try {
             destination.createNewFile();
             fo = new FileOutputStream(destination);
@@ -290,7 +286,6 @@ public class ImageUpload extends Activity {
 
             encodedImage = Base64.encodeToString(b, Base64.NO_WRAP);
             Log.e("Encoded Base64 Camera", encodedImage);
-
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -374,7 +369,7 @@ public class ImageUpload extends Activity {
             request.addProperty(uNamePI);
 
             passPI.setName("Personel_Id");
-            passPI.setValue(loginStatus);
+            passPI.setValue(Astatus);
             passPI.setType(String.class);
 
             request.addProperty(passPI);
@@ -471,7 +466,7 @@ public class ImageUpload extends Activity {
             request.addProperty(uNamePI);
 
             passPI.setName("Personel_Id");
-            passPI.setValue(loginStatus);
+            passPI.setValue(Astatus);
             passPI.setType(String.class);
 
             request.addProperty(passPI);

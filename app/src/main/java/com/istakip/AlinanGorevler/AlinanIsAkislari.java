@@ -46,26 +46,25 @@ import java.util.Map;
 import static com.istakip.AlinanGorevler.NavAlinanGorevlerim.text_gorevGorevId;
 import static com.istakip.AlinanGorevler.NavAlinanGorevlerim.text_gorevReferans;
 import static com.istakip.AlinanGorevler.NavAlinanGorevlerim.text_oncelikDurumu;
-import static com.istakip.LoginScreen.loginStatus;
+import static com.istakip.LoginWebServiceQuery.Astatus;
 
 public class AlinanIsAkislari extends AppCompatActivity {
 
     String Gorev_Id, Adim_Id, Master_Id, Slave_Id, Gorevi_Veren, Gorevi_Alan, Profil_Adi,
             Gorev_Adi, Gorev_Detay, Oncelik_Durumu, Yapilan_Is, Gorev_Adim_Yapilan_Tarih, Gorev_Adim_Yapilan_Saat,
             Proje_Id, Gorevi_Yapan, Gorevi_Yapan_Profil_URL;
+    String yeni_is_durum, sil_gorev_result;
+    String sil_gorev;
+    String str_yeni_gorev;
+    ListView list_is_akisi;
 
     ArrayList<HashMap<String, String>> contactListIsAkislari;
     ArrayList<String> sil_gorev_WS;
 
-    String yeni_is_durum, sil_gorev_result;
-    String sil_gorev;
-
-    ListView list_is_akisi;
+    HashMap<String, String> hashIsAkisi;
 
     EditText yeni_gorev_adim;
     Button btn_yeni_gorev_adim;
-    String str_yeni_gorev;
-    HashMap<String, String> hashIsAkisi;
 
     FloatingActionButton fab;
 
@@ -76,14 +75,6 @@ public class AlinanIsAkislari extends AppCompatActivity {
 
         contactListIsAkislari = new ArrayList<>();
         sil_gorev_WS = new ArrayList<>();
-
-        // image_upload = (Button) findViewById(R.id.image_upload);
-        // image_upload.setOnClickListener(new View.OnClickListener() {
-        //     @Override
-        //     public void onClick(View v) {
-        //         startActivity(new Intent(AlinanIsAkislari.this, ImageUpload.class));
-        //     }
-        // });
 
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -150,7 +141,6 @@ public class AlinanIsAkislari extends AppCompatActivity {
 
             Log.e("Network Connection", "############################You are not online!!!!");
         }
-
     }
 
     @Override
@@ -266,20 +256,17 @@ public class AlinanIsAkislari extends AppCompatActivity {
                 Log.e("3", "JSONException");
                 e.printStackTrace();
             }
-
             return null;
         }
 
         @Override
         protected void onPostExecute(Void aVoid) {
 
-            // Toast.makeText(AlinanIsAkislari.this, contactListIsAkislari.toString(), Toast.LENGTH_LONG).show();
             ListAdapter listAdapter = new MyAdapterIsAkislari(AlinanIsAkislari.this, contactListIsAkislari, R.layout.activity_list_alinan_is_akisi,
                     new String[]{"Gorev_Adim_Yapilan_Saat", "Gorevi_Yapan", "Yapilan_Is"},
                     new int[]{R.id.alinan_list_is_akisi_tarih, R.id.alinan_list_is_akisi_yapan, R.id.alinan_list_is_akisi_gorev_detayi});
             list_is_akisi.setAdapter(listAdapter);
             Collections.reverse(contactListIsAkislari);
-
         }
 
         @Override
@@ -288,8 +275,6 @@ public class AlinanIsAkislari extends AppCompatActivity {
             list_is_akisi.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                 @Override
                 public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
-
-                    //Toast.makeText(AlinanIsAkislari.this, sil_gorev_WS.get(position).toString(), Toast.LENGTH_LONG).show();
 
                     AlertDialog.Builder builder;
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -362,7 +347,7 @@ public class AlinanIsAkislari extends AppCompatActivity {
             request.addProperty(passPI);
 
             gorevi_yapan_kisi_IDPI.setName("Gorevi_Yapan_Kisi_Id");
-            gorevi_yapan_kisi_IDPI.setValue(loginStatus);
+            gorevi_yapan_kisi_IDPI.setValue(Astatus);
             gorevi_yapan_kisi_IDPI.setType(Integer.class);
 
             request.addProperty(gorevi_yapan_kisi_IDPI);
@@ -387,7 +372,6 @@ public class AlinanIsAkislari extends AppCompatActivity {
                 Log.e("2", "do");
                 e.printStackTrace();
             }
-
             return null;
         }
 
@@ -407,7 +391,6 @@ public class AlinanIsAkislari extends AppCompatActivity {
     private class WebServiceSilGorevAdim extends AsyncTask<String, Void, Void> {
         @Override
         protected Void doInBackground(String... params) {
-
 
             String NAMESPACE = "http://tempuri.org/";
             String URL = "http://istakip.goktekinenerji.com/SERVISLER/WebServiceIsTakip.asmx";//Make sure you changed IP address
@@ -451,7 +434,6 @@ public class AlinanIsAkislari extends AppCompatActivity {
                 Log.e("2", "do");
                 e.printStackTrace();
             }
-
             return null;
         }
 

@@ -2,8 +2,9 @@ package com.istakip;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.media.Image;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.internal.NavigationMenu;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -32,15 +33,17 @@ import com.squareup.picasso.Picasso;
 
 import io.github.yavski.fabspeeddial.FabSpeedDial;
 
-import static com.istakip.LoginScreen.editor;
-import static com.istakip.LoginScreen.kb_mail;
-import static com.istakip.LoginScreen.kb_profil_adi;
-import static com.istakip.LoginScreen.kb_profil_url;
-import static com.istakip.LoginScreen.pref;
+import static com.istakip.LoginScreen.etPassword;
+import static com.istakip.LoginScreen.etUsername;
+import static com.istakip.LoginWebServiceQuery.kb_mail;
+import static com.istakip.LoginWebServiceQuery.kb_profil_adi;
+import static com.istakip.LoginWebServiceQuery.kb_profil_url;
 
 public class Navigation_Drawer extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     FragmentTransaction fragmentTransaction;
+    SharedPreferences preferences;
+    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,7 +90,6 @@ public class Navigation_Drawer extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.add(R.id.content_frame, new NavAlinanGorevlerim()).commit();
 
@@ -125,10 +127,9 @@ public class Navigation_Drawer extends AppCompatActivity
                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            // String positionView = contactListOnay.get(position).toString();
-                            finish();
-                            getFragmentManager().popBackStack();
-                            System.exit(0);
+
+                            moveTaskToBack(true);
+
                         }
                     })
                     .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
@@ -161,10 +162,16 @@ public class Navigation_Drawer extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.log_out) {
 
-            finish();
-            getFragmentManager().popBackStack();
-            System.exit(0);
+            preferences = PreferenceManager.getDefaultSharedPreferences(this);
+            editor = preferences.edit();
+            editor.clear().apply();
 
+            etUsername.setText("");
+            etPassword.setText("");
+            finish();
+            // getFragmentManager().popBackStack();
+            // System.exit(0);
+            startActivity(new Intent(getApplicationContext(), LoginScreen.class));
             return true;
         }
 

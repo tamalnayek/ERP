@@ -39,16 +39,17 @@ import static com.istakip.VerilenGorevler.NavVerilenGorevler.text_verilen_tarih;
 public class NavVerilenGorevlerDetail extends AppCompatActivity {
 
     public String kapat_gorev_deneme;
-    EditText detail_verilen_gorev_alan, detail_verilen_gorev_adi, detail_verilen_oncelik_durumu,
-            detail_verilen_gorev_detay, detail_verilen_tarih, detail_verilen_gorev_bitisTarih;
-    Button detail_verilen_gorev_degistir;
     String strGorevAdi, strGorevOnceligi, strGorevAciklamasi, strBitisTarih;
     String gorevDurumu;
-    Button detail_verilen_gorev_kapatma;
 
     Calendar takvim;
     String myFormat = "dd.MM.yyyy";
     DatePickerDialog.OnDateSetListener date;
+
+    Button detail_verilen_gorev_kapatma;
+    Button detail_verilen_gorev_degistir;
+    EditText detail_verilen_gorev_alan, detail_verilen_gorev_adi, detail_verilen_oncelik_durumu,
+            detail_verilen_gorev_detay, detail_verilen_tarih, detail_verilen_gorev_bitisTarih;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,14 +129,12 @@ public class NavVerilenGorevlerDetail extends AppCompatActivity {
                     Toast.makeText(NavVerilenGorevlerDetail.this, "Gorev Onceligi Değerini 1-5 arasında giriniz!", Toast.LENGTH_LONG).show();
 
                 }
-
             }
         });
     }
 
     private void updateLabel() {
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
-
         detail_verilen_gorev_bitisTarih.setText(sdf.format(takvim.getTime()));
     }
 
@@ -233,13 +232,11 @@ public class NavVerilenGorevlerDetail extends AppCompatActivity {
 
             if (gorevDurumu.equals("0")) {
                 Toast.makeText(getBaseContext(), "Yeni Görev Kaydedildi!", Toast.LENGTH_SHORT).show();
-               finish();
+                finish();
             } else {
                 Toast.makeText(getBaseContext(), "Lütfen Daha Sonra Tekrar Deneyiniz!", Toast.LENGTH_LONG).show();
             }
         }
-
-
     }
 
     private class Gorev_KapatmaWebService extends AsyncTask<String, Void, Void> {
@@ -282,7 +279,6 @@ public class NavVerilenGorevlerDetail extends AppCompatActivity {
                 kapat_gorev_deneme = (response.toString());
 
             } catch (Exception e) {
-                //LoginScreen.errored = true;
                 e.printStackTrace();
             }
             return null;
@@ -294,7 +290,7 @@ public class NavVerilenGorevlerDetail extends AppCompatActivity {
                 Toast.makeText(getBaseContext(), "Görev Değiştirildi!", Toast.LENGTH_SHORT).show();
                 detail_verilen_gorev_bitisTarih.setText("");
                 finish();
-                startActivity(new Intent(NavVerilenGorevlerDetail.this,Navigation_Drawer.class));
+                startActivity(new Intent(NavVerilenGorevlerDetail.this, Navigation_Drawer.class));
             } else {
                 Toast.makeText(getBaseContext(), "Lütfen Daha Sonra Tekrar Deneyiniz!", Toast.LENGTH_LONG).show();
             }

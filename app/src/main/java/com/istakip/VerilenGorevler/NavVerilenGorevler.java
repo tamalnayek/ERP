@@ -46,7 +46,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.istakip.LoginScreen.loginStatus;
+import static com.istakip.LoginWebServiceQuery.Astatus;
 
 public class NavVerilenGorevler extends Fragment {
 
@@ -59,11 +59,13 @@ public class NavVerilenGorevler extends Fragment {
             verdigim_proje_id, verdigim_proje_adi, verdigim_gorev_referans, verdigim_profil_url,verdigim_bitis_tarihi;
 
     ArrayList<HashMap<String, String>> contactListVerilen;
-    ListView listVerilenGorev;
+    HashMap<String, String> hashverdigim;
+
     View myView;
+
     LinearLayout nav_verilen_linear_layout;
     SwipeRefreshLayout swipeRefreshLayout;
-    HashMap<String, String> hashverdigim;
+    ListView listVerilenGorev;
     RatingBar rating_verilen;
 
     @Override
@@ -97,8 +99,6 @@ public class NavVerilenGorevler extends Fragment {
                 }, 1000);
             }
         });
-
-
         return myView;
     }
 
@@ -107,7 +107,6 @@ public class NavVerilenGorevler extends Fragment {
         if (NetworkReceiver.getInstance(getContext()).isOnline()) {
 
             Log.v("Network Connection", "You are not online!!!!");
-
             new WebServiceVerilenGorev().execute();
 
         } else {
@@ -135,10 +134,8 @@ public class NavVerilenGorevler extends Fragment {
             }).setIcon(R.drawable.nuclear_alert)
                     .setCancelable(false)
                     .show();
-
             Log.e("Network Connection", "############################You are not online!!!!");
         }
-
     }
 
     public class WebServiceVerilenGorev extends AsyncTask<String, Void, Void> {
@@ -156,7 +153,7 @@ public class NavVerilenGorevler extends Fragment {
             PropertyInfo passPI = new PropertyInfo();
 
             masterIdPI.setName("Master_Id");
-            masterIdPI.setValue(loginStatus);
+            masterIdPI.setValue(Astatus);
             masterIdPI.setType(Integer.class);
 
             request.addProperty(masterIdPI);
@@ -228,7 +225,6 @@ public class NavVerilenGorevler extends Fragment {
                 Log.e("3", "do");
                 e.printStackTrace();
             }
-
             return null;
         }
 
@@ -254,7 +250,6 @@ public class NavVerilenGorevler extends Fragment {
                         .setCancelable(false)
                         .show();
             }
-            //Toast.makeText(getActivity(),contactListVerilen.toString(),Toast.LENGTH_LONG).show();
             ListAdapter listAdapter = new MyAdapterVerilen(getActivity(), contactListVerilen, R.layout.activity_list_verilen_gorevler,
                     new String[]{"Gorevi_Alan", "Gorev_Adi", "Tarih", "Oncelik_Durumu"},
                     new int[]{R.id.verilen_list_gorev_alan, R.id.verilen_list_gorev_adi, R.id.verilen_list_tarih, R.id.ratingbar_verilen});
@@ -262,7 +257,6 @@ public class NavVerilenGorevler extends Fragment {
             listVerilenGorev.setAdapter(listAdapter);
 
             nav_verilen_linear_layout.setVisibility(View.GONE);
-
         }
 
         @Override
@@ -297,7 +291,6 @@ public class NavVerilenGorevler extends Fragment {
                     text_verilen_gorev_id = (String) obj.get("Gorev_Id");
                     text_verilen_slave_id = (String) obj.get("Slave_Id");
                     text_verilen_gorev_referans = (String) obj.get("Gorev_Referans");
-                    //Toast.makeText(getContext(),text_verilen_gorev_id,Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(getActivity(), VerilenIsAkislari.class));
                 }
             });
@@ -359,7 +352,6 @@ public class NavVerilenGorevler extends Fragment {
                     Picasso.with(v.getContext()).load("http://" + url).into(img);
                 }
             }
-
             return v;
         }
     }

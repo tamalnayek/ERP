@@ -37,19 +37,20 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static com.istakip.LoginScreen.loginStatus;
+import static com.istakip.LoginWebServiceQuery.Astatus;
 
 public class NavProjeler extends Fragment {
 
-    String proje_kullanici_id, proje_durumu, proje_kayit_tarihi;
+    public static ArrayList<HashMap<String, String>> projelerList;
     static String proje_adi;
     static String proje_id;
+    static String text_projeler_proje_id;
     View myView;
-    public static ArrayList<HashMap<String, String>> projelerList;
+    String proje_kullanici_id, proje_durumu, proje_kayit_tarihi;
     ListView listView;
+
     LinearLayout nav_peojeler_linear_layout;
     SwipeRefreshLayout swipeRefreshLayout;
-    static String text_projeler_proje_id;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -62,7 +63,6 @@ public class NavProjeler extends Fragment {
         nav_peojeler_linear_layout = (LinearLayout) myView.findViewById(R.id.nav_peojeler_linear_layout);
 
         checkNetwork();
-
 
         swipeRefreshLayout = (SwipeRefreshLayout) myView.findViewById(R.id.swipe_projeler);
         swipeRefreshLayout.setColorSchemeResources(R.color.darkred, R.color.colorBlue, R.color.colorpurple);
@@ -81,7 +81,6 @@ public class NavProjeler extends Fragment {
                 }, 1000);
             }
         });
-
         return myView;
     }
 
@@ -90,7 +89,6 @@ public class NavProjeler extends Fragment {
         if (NetworkReceiver.getInstance(getContext()).isOnline()) {
 
             Log.v("Network Connection", "You not online!!!!");
-
             new WebService().execute();
 
         } else {
@@ -118,10 +116,8 @@ public class NavProjeler extends Fragment {
             }).setIcon(R.drawable.nuclear_alert)
                     .setCancelable(false)
                     .show();
-
             Log.e("Network Connection", "############################You are not online!!!!");
         }
-
     }
 
     private class WebService extends AsyncTask<String, Void, Void> {
@@ -139,7 +135,7 @@ public class NavProjeler extends Fragment {
             PropertyInfo masterIdPI = new PropertyInfo();
 
             masterIdPI.setName("Personel_Id");
-            masterIdPI.setValue(loginStatus);
+            masterIdPI.setValue(Astatus);
             masterIdPI.setType(String.class);
 
             request.addProperty(masterIdPI);
@@ -187,7 +183,6 @@ public class NavProjeler extends Fragment {
                 Log.e("3", "do");
                 e.printStackTrace();
             }
-
             return null;
         }
 
@@ -220,7 +215,6 @@ public class NavProjeler extends Fragment {
 
             listView.setAdapter(adapter);
             nav_peojeler_linear_layout.setVisibility(View.GONE);
-
         }
 
         @Override
@@ -235,7 +229,7 @@ public class NavProjeler extends Fragment {
 
                 @Override
                 public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                    if (listView.getChildAt(0)!= null){
+                    if (listView.getChildAt(0) != null) {
                         swipeRefreshLayout.setEnabled(listView.getFirstVisiblePosition() == 0 && listView.getChildAt(0).getTop() == 0);
                     }
                 }
@@ -246,7 +240,7 @@ public class NavProjeler extends Fragment {
 
                     HashMap<String, Object> obj = (HashMap<String, Object>) listView.getItemAtPosition(position);
 
-                    text_projeler_proje_id =(String) obj.get("Proje_Id");
+                    text_projeler_proje_id = (String) obj.get("Proje_Id");
 
                     startActivity(new Intent(getActivity(), ProjelerimGorevler.class));
                 }

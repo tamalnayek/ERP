@@ -96,10 +96,8 @@ public class ProjeIsAkisi extends AppCompatActivity {
             }).setIcon(R.drawable.nuclear_alert)
                     .setCancelable(false)
                     .show();
-
             Log.e("Network Connection", "############################You are not online!!!!");
         }
-
     }
 
     private class JListeleIsAkislari extends AsyncTask<String, Void, Void>{
@@ -188,9 +186,7 @@ public class ProjeIsAkisi extends AppCompatActivity {
                     projehashIsAkisi.put("Gorevi_Yapan_Profil_Url", Projeler_IsAkisi_Gorevi_Yapan_Profil_URL);
 
                     contactListProjeIsAkislari.add(projehashIsAkisi);
-
                 }
-
             } catch (IOException e) {
                 Log.e("1", "IOException");
                 e.printStackTrace();
@@ -226,7 +222,6 @@ public class ProjeIsAkisi extends AppCompatActivity {
                         .setCancelable(false)
                         .show();
             }
-
             ListAdapter listAdapter = new MyAdapterIsAkislari(ProjeIsAkisi.this, contactListProjeIsAkislari, R.layout.activity_list_projeler_is_akisi,
                     new String[]{"Gorev_Adim_Yapilan_Saat", "Gorevi_Yapan", "Yapilan_Is"},
                     new int[]{R.id.list_is_akisi_proje_tarih, R.id.list_is_proje_akisi_yapan, R.id.list_is_akisi_proje_gorev_detayi});

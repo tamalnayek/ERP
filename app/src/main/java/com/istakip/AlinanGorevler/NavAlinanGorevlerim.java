@@ -25,7 +25,6 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.SimpleAdapter;
-import android.widget.Toast;
 
 import com.istakip.NetworkReceiver;
 import com.istakip.R;
@@ -47,20 +46,25 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.istakip.LoginScreen.loginStatus;
+import static com.istakip.LoginWebServiceQuery.Astatus;
 
 public class NavAlinanGorevlerim extends Fragment {
 
     static String aldigim_gorevId, aldigim_masterId, aldigim_slaveId, aldigim_gorevVeren, aldigim_gorevAlan, aldigim_gorevAdi, aldigim_oncelikDurumu,
             aldigim_gorevDetay, aldigim_tarih, aldigim_projeAdi, aldigim_projeId, aldigim_gorevReferans, aldigim_profil_URL;
     static String text_gorevVeren, text_gorevGorevId, text_gorevIsGorevId, textSlaveId, text_gorevAdi, text_gorevDetay, text_oncelikDurumu, text_tarih, text_gorevReferans;
+
     static ArrayList<HashMap<String, String>> contactList, urlList;
-    View myView;
-    ListView listView;
-    LinearLayout nav_alinan_linear_layout;
-    SwipeRefreshLayout swipeRefreshLayout;
+
     HashMap<String, String> contact;
     HashMap<String, String> contact_url;
+
+    View myView;
+
+    ListView listView;
+
+    LinearLayout nav_alinan_linear_layout;
+    SwipeRefreshLayout swipeRefreshLayout;
     RatingBar ratingbar_alinan;
 
     @Override
@@ -104,7 +108,6 @@ public class NavAlinanGorevlerim extends Fragment {
         if (NetworkReceiver.getInstance(getContext()).isOnline()) {
 
             Log.v("Network Connection", "You not online!!!!");
-
             new WebService().execute();
 
         } else {
@@ -135,9 +138,7 @@ public class NavAlinanGorevlerim extends Fragment {
 
             Log.e("Network Connection", "############################You are not online!!!!");
         }
-
     }
-
 
     private class WebService extends AsyncTask<String, Void, Void> {
 
@@ -154,7 +155,7 @@ public class NavAlinanGorevlerim extends Fragment {
             PropertyInfo passPI = new PropertyInfo();
 
             masterIdPI.setName("Slave_Id");
-            masterIdPI.setValue(loginStatus);
+            masterIdPI.setValue(Astatus);
             masterIdPI.setType(String.class);
 
             request.addProperty(masterIdPI);
@@ -213,9 +214,6 @@ public class NavAlinanGorevlerim extends Fragment {
                     contact.put("Profil_Url", aldigim_profil_URL);
 
                     contactList.add(contact);
-                    // urlList.add(contact_url);
-
-
                 }
             } catch (IOException e) {
                 Log.e("1", "do");
@@ -227,7 +225,6 @@ public class NavAlinanGorevlerim extends Fragment {
                 Log.e("3", "do");
                 e.printStackTrace();
             }
-
             return null;
         }
 
@@ -253,7 +250,6 @@ public class NavAlinanGorevlerim extends Fragment {
                         .setCancelable(false)
                         .show();
             }
-
 
             ListAdapter adapter = new MyAdapter(getActivity(), contactList,
                     R.layout.activity_list_alinan_gorevler, new String[]{"Gorevi_Veren", "Gorev_Adi", "Tarih", "Oncelik_Durumu"},
@@ -283,7 +279,6 @@ public class NavAlinanGorevlerim extends Fragment {
                 }
             });
 
-
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -298,8 +293,6 @@ public class NavAlinanGorevlerim extends Fragment {
             listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                 @Override
                 public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                    // text = listView.getItemAtPosition(position).toString();
-                    //Toast.makeText(getActivity(), text, Toast.LENGTH_LONG).show();
                     HashMap<String, Object> objLong = (HashMap<String, Object>) listView.getItemAtPosition(position);
 
                     text_gorevVeren = (String) objLong.get("Gorevi_Veren");
@@ -354,10 +347,8 @@ public class NavAlinanGorevlerim extends Fragment {
                     Picasso.with(v.getContext()).load("http://" + url).into(img); //Ekranda göster
                 }
             }
-
             return v;
         }
-
     }
 
     private class MyBinder implements SimpleAdapter.ViewBinder { //Rating Bar update value from webservice

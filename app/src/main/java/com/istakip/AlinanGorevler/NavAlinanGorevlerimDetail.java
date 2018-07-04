@@ -90,7 +90,6 @@ public class NavAlinanGorevlerimDetail extends AppCompatActivity {
                new OnayaGonderWS().execute();
             }
         });
-
     }
 
     @Override
@@ -140,7 +139,6 @@ public class NavAlinanGorevlerimDetail extends AppCompatActivity {
                 kapat_gorev_deneme = (response.toString());
 
             } catch (Exception e) {
-                //LoginScreen.errored = true;
                 e.printStackTrace();
             }
             return null;
@@ -150,7 +148,6 @@ public class NavAlinanGorevlerimDetail extends AppCompatActivity {
         protected void onPostExecute(Void aVoid) {
             if (kapat_gorev_deneme.equals("0")) {
                 Toast.makeText(getBaseContext(), "Görev Onaya Gönderildi!", Toast.LENGTH_SHORT).show();
-               // finish();
                 startActivity(new Intent(NavAlinanGorevlerimDetail.this,Navigation_Drawer.class));
             } else {
                 Toast.makeText(getBaseContext(), "Lütfen Daha Sonra Tekrar Deneyiniz!", Toast.LENGTH_LONG).show();

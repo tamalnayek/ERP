@@ -10,10 +10,10 @@ import android.util.Log;
  * Created by Ask on 11.12.2017.
  */
 
-public class NetworkReceiver  {
+public class NetworkReceiver {
 
-    private static NetworkReceiver instance = new NetworkReceiver();
     static Context context;
+    private static NetworkReceiver instance = new NetworkReceiver();
     ConnectivityManager connectivityManager;
     NetworkInfo wifiInfo, mobileInfo;
     boolean connected = false;
@@ -33,14 +33,13 @@ public class NetworkReceiver  {
                     networkInfo.isConnected();
             return connected;
 
-
         } catch (Exception e) {
             System.out.println("CheckConnectivity Exception: " + e.getMessage());
             Log.v("connectivity", e.toString());
         }
         return connected;
     }
-
+}
 /*
     static boolean isConnected = false;
 
@@ -73,4 +72,4 @@ public class NetworkReceiver  {
         Toast.makeText(context, "Internet bağlantısını kontrol ediniz!", Toast.LENGTH_SHORT).show();
         return false;
     }*/
-}
+

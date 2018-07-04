@@ -9,7 +9,7 @@
     <FrameLayout
         android:id="@+id/FrameLayoutId"
         android:layout_width="300dp"
-        android:layout_height="220dp"
+        android:layout_height="200dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="280dp"
         android:background="#eceaee">
@@ -54,7 +54,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_marginLeft="25dp"
                 android:layout_marginRight="25dp"
-                android:layout_marginTop="90dp"
+                android:layout_marginTop="100dp"
                 android:background="@drawable/rounded_text"
                 android:drawableLeft="@drawable/greenunlockicon"
                 android:drawablePadding="10dp"
@@ -69,24 +69,6 @@
                 android:textSize="12sp"
                 android:typeface="sans" />
 
-
-            <CheckBox
-                android:id="@+id/ch_rememberme"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/etPassword"
-                android:layout_centerHorizontal="true"
-                android:layout_marginLeft="25dp"
-                android:layout_marginRight="25dp"
-                android:layout_marginTop="10dp"
-                android:fontFamily="sans-serif"
-                android:text="Beni Hatırla"
-                android:textSize="12sp"
-                android:typeface="sans" />
 
         </RelativeLayout>
 
@@ -113,7 +95,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="45dp"
+        android:layout_marginBottom="60dp"
         android:background="@drawable/rounded_button"
         android:ems="10"
         android:onClick="userLogin"

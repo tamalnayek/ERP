@@ -46,7 +46,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.istakip.LoginScreen.loginStatus;
+import static com.istakip.LoginWebServiceQuery.Astatus;
 
 public class NavTamamlananGorevler extends Fragment {
     View myView;
@@ -61,6 +61,7 @@ public class NavTamamlananGorevler extends Fragment {
 
     HashMap<String, String> hashTamamlanan;
     ArrayList<HashMap<String, String>> contactListTamamlanan;
+
     ListView listTamamlananGorev;
     RatingBar rating_tamamlanan;
     LinearLayout nav_tamamlanan_linear_layout;
@@ -96,7 +97,6 @@ public class NavTamamlananGorevler extends Fragment {
                 }, 1000);
             }
         });
-
         return myView;
     }
 
@@ -105,7 +105,6 @@ public class NavTamamlananGorevler extends Fragment {
         if (NetworkReceiver.getInstance(getContext()).isOnline()) {
 
             Log.v("Network Connection", "You are online!!!!");
-
             new TamamlananWebService().execute();
 
         } else {
@@ -152,7 +151,7 @@ public class NavTamamlananGorevler extends Fragment {
             PropertyInfo passPI = new PropertyInfo();
 
             masterIdPI.setName("Master_Id");
-            masterIdPI.setValue(loginStatus);
+            masterIdPI.setValue(Astatus);
             masterIdPI.setType(String.class);
 
             request.addProperty(masterIdPI);
@@ -225,7 +224,6 @@ public class NavTamamlananGorevler extends Fragment {
                 Log.e("3", "JSONException");
                 e.printStackTrace();
             }
-
             return null;
         }
 
@@ -263,12 +261,9 @@ public class NavTamamlananGorevler extends Fragment {
                     text_tamamlanan_gorev_referans = (String) obj.get("Gorev_Referans");
                     text_tamamlanan_proje_id = (String) obj.get("Proje_Id") ;
                     text_tamamlanan_bitisTarih = (String) obj.get("Bitis_Tarihi");
-                    //Toast.makeText(getContext(),text_verilen_gorev_id,Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(getActivity(), TamamlananIsAkisi.class));
                 }
             });
-
-
         }
 
         @Override
@@ -293,7 +288,6 @@ public class NavTamamlananGorevler extends Fragment {
                         .setCancelable(false)
                         .show();
             }
-            //Toast.makeText(getActivity(),contactListVerilen.toString(),Toast.LENGTH_LONG).show();
             ListAdapter listAdapter = new MyAdapterTamamlanan(getActivity(), contactListTamamlanan, R.layout.activity_list_tamamlanan_gorevler,
                     new String[]{"Gorevi_Alan", "Gorev_Adi", "Tarih", "Oncelik_Durumu"},
                     new int[]{R.id.tamamlanan_list_gorev_alan, R.id.tamamlanan_list_gorev_adi, R.id.tamamlanan_list_tarih, R.id.ratingbar_tamamlanan});
@@ -337,7 +331,6 @@ public class NavTamamlananGorevler extends Fragment {
                     Picasso.with(v.getContext()).load("http://" + url).into(img);
                 }
             }
-
             return v;
         }
     }
