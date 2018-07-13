@@ -4,6 +4,15 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:weightSum="1">
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
@@ -77,5 +86,6 @@
         android:background="@drawable/red_rounded_button"
         android:text="Onaya Gönder"
         android:textColor="#ffffff" />
-
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

@@ -20,6 +20,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.istakip.Navigation_Drawer;
@@ -68,6 +69,7 @@ public class ImageUpload extends Activity {
     Boolean isCheckedImage = false;
     private int REQUEST_CAMERA = 0, SELECT_FILE = 1;
 
+    LinearLayout linlaHeaderProgressWS;
     private ImageView ivImage;
 
     @Override
@@ -88,6 +90,8 @@ public class ImageUpload extends Activity {
         });
         ivImage = (ImageView) findViewById(R.id.ivImage);
 
+        linlaHeaderProgressWS = (LinearLayout) findViewById(R.id.linlaHeaderProgressWS);
+
         btnUpload = (Button) findViewById(R.id.btnUploadPhoto);
         btnUpload.setOnClickListener(new OnClickListener() {
             @Override
@@ -99,6 +103,7 @@ public class ImageUpload extends Activity {
                         upload_explanation = img_explanation.getText().toString();
 
                         checkNetwork();
+                        Toast.makeText(ImageUpload.this,"Lütfen bekleyiniz!",Toast.LENGTH_LONG).show();
 
                     } else {
                         Toast.makeText(ImageUpload.this, "Lütfen açıklama giriniz!", Toast.LENGTH_SHORT).show();
@@ -122,7 +127,7 @@ public class ImageUpload extends Activity {
 
         } else {
             android.support.v7.app.AlertDialog.Builder builder;
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
                 builder = new android.support.v7.app.AlertDialog.Builder(ImageUpload.this, android.R.style.Theme_Material_Dialog_Alert);
             } else {
                 builder = new android.support.v7.app.AlertDialog.Builder(ImageUpload.this);
@@ -406,6 +411,7 @@ public class ImageUpload extends Activity {
 
         @Override
         protected void onPostExecute(Void aVoid) {
+            linlaHeaderProgressWS.setVisibility(View.GONE);
             if (status.equals("Dosya Yüklendi!")) {
                 Toast.makeText(ImageUpload.this, status, Toast.LENGTH_LONG).show();
                 finish();
@@ -413,6 +419,11 @@ public class ImageUpload extends Activity {
                 Toast.makeText(ImageUpload.this, "Lütfen Tekrar Deneyiniz!", Toast.LENGTH_LONG).show();
                 startActivity(new Intent(ImageUpload.this, Navigation_Drawer.class));
             }
+        }
+
+        @Override
+        protected void onPreExecute() {
+            linlaHeaderProgressWS.setVisibility(View.VISIBLE);
         }
     }
 

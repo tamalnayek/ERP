@@ -104,7 +104,7 @@ public class NavDocumentationUpload extends Fragment {
 
         } else {
             android.support.v7.app.AlertDialog.Builder builder;
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
                 builder = new android.support.v7.app.AlertDialog.Builder(getContext(), android.R.style.Theme_Material_Dialog_Alert);
             } else {
                 builder = new android.support.v7.app.AlertDialog.Builder(getContext());
@@ -211,7 +211,7 @@ public class NavDocumentationUpload extends Fragment {
 
             if (dokumanlarList.isEmpty()) {
                 android.support.v7.app.AlertDialog.Builder builder;
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
                     builder = new android.support.v7.app.AlertDialog.Builder(getContext(), android.R.style.Theme_Material_Dialog_Alert);
                 } else {
                     builder = new android.support.v7.app.AlertDialog.Builder(getContext());
@@ -262,7 +262,7 @@ public class NavDocumentationUpload extends Fragment {
                     text_file_URL = (String) obj.get("Document_Url");
 
                     AlertDialog.Builder builder;
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
                         builder = new AlertDialog.Builder(getContext(), android.R.style.Theme_Material_Dialog_Alert);
                     } else {
                         builder = new AlertDialog.Builder(getContext());

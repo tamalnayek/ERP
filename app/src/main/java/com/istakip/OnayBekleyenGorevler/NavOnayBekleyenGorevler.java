@@ -107,7 +107,7 @@ public class NavOnayBekleyenGorevler extends Fragment {
             new TamamlananWebService().execute();
         } else {
             AlertDialog.Builder builder;
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
                 builder = new AlertDialog.Builder(getContext(), android.R.style.Theme_Material_Dialog_Alert);
             } else {
                 builder = new AlertDialog.Builder(getContext());
@@ -248,7 +248,7 @@ public class NavOnayBekleyenGorevler extends Fragment {
 
                     final android.app.AlertDialog.Builder builder;
 
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
                         builder = new android.app.AlertDialog.Builder(getContext(), android.R.style.Theme_Material_Dialog_Alert);
                     } else {
                         builder = new android.app.AlertDialog.Builder(getContext());
@@ -283,7 +283,7 @@ public class NavOnayBekleyenGorevler extends Fragment {
 
             if (contactListOnay.isEmpty()) {
                 AlertDialog.Builder builder;
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
                     builder = new AlertDialog.Builder(getContext(), android.R.style.Theme_Material_Dialog_Alert);
                 } else {
                     builder = new AlertDialog.Builder(getContext());

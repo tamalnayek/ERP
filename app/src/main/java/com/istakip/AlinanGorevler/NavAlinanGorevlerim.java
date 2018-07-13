@@ -112,7 +112,7 @@ public class NavAlinanGorevlerim extends Fragment {
 
         } else {
             AlertDialog.Builder builder;
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
                 builder = new AlertDialog.Builder(getContext(), android.R.style.Theme_Material_Dialog_Alert);
             } else {
                 builder = new AlertDialog.Builder(getContext());
@@ -233,7 +233,7 @@ public class NavAlinanGorevlerim extends Fragment {
 
             if (contactList.isEmpty()) {
                 AlertDialog.Builder builder;
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
                     builder = new AlertDialog.Builder(getContext(), android.R.style.Theme_Material_Dialog_Alert);
                 } else {
                     builder = new AlertDialog.Builder(getContext());

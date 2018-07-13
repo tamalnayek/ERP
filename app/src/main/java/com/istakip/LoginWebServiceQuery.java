@@ -73,7 +73,7 @@ public class LoginWebServiceQuery extends AppCompatActivity {
 
         } else {
             AlertDialog.Builder builder;
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
                 builder = new AlertDialog.Builder(LoginWebServiceQuery.this, android.R.style.Theme_Material_Dialog_Alert);
             } else {
                 builder = new AlertDialog.Builder(LoginWebServiceQuery.this);

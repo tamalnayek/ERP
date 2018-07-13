@@ -6,109 +6,118 @@
     android:orientation="vertical"
     tools:context="com.istakip.VerilenGorevler.NavVerilenGorevlerDetail">
 
-    <android.support.design.widget.TextInputLayout
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/scroll"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
+        android:layout_height="match_parent">
 
-        <EditText
-            android:id="@+id/detail_verilen_gorev_alan"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Görevi Alan"
-            android:fontFamily="sans-serif"
-            />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+                <EditText
+                    android:id="@+id/detail_verilen_gorev_alan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif"
+                    android:hint="Görevi Alan" />
 
-        <EditText
-            android:id="@+id/detail_verilen_gorev_adi"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Görevi Adı"
-            android:fontFamily="sans-serif"/>
+            </android.support.design.widget.TextInputLayout>
 
-    </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+                <EditText
+                    android:id="@+id/detail_verilen_gorev_adi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif"
+                    android:hint="Görevi Adı" />
 
-        <EditText
-            android:id="@+id/detail_verilen_oncelik_durumu"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Öncelik Durumu"
-            android:fontFamily="sans-serif"/>
+            </android.support.design.widget.TextInputLayout>
 
-    </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+                <EditText
+                    android:id="@+id/detail_verilen_oncelik_durumu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif"
+                    android:hint="Öncelik Durumu" />
 
-        <EditText
-            android:id="@+id/detail_verilen_gorev_tarih"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Tarih"
-            android:fontFamily="sans-serif"/>
+            </android.support.design.widget.TextInputLayout>
 
-    </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+                <EditText
+                    android:id="@+id/detail_verilen_gorev_tarih"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif"
+                    android:hint="Tarih" />
 
-        <EditText
-            android:id="@+id/detail_verilen_gorev_detayi"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Görev Detayı"
-            android:fontFamily="sans-serif"/>
+            </android.support.design.widget.TextInputLayout>
 
-    </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+                <EditText
+                    android:id="@+id/detail_verilen_gorev_detayi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif"
+                    android:hint="Görev Detayı" />
 
-        <EditText
-            android:id="@+id/detail_verilen_gorev_bitisTarih"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Tahmini Bitiş Süresi"
-            android:fontFamily="sans-serif"
-            android:focusable="false"/>
+            </android.support.design.widget.TextInputLayout>
 
-    </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:orientation="vertical">
+                <EditText
+                    android:id="@+id/detail_verilen_gorev_bitisTarih"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="false"
+                    android:fontFamily="sans-serif"
+                    android:hint="Tahmini Bitiş Süresi" />
 
-        <Button
-            android:id="@+id/detail_verilen_gorev_sil"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/red_rounded_button"
-            android:text="Görevi Kapat"
-            android:textColor="#ffffff" />
+            </android.support.design.widget.TextInputLayout>
 
-        <Button
-            android:id="@+id/detail_verilen_gorev_degistir"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/rounded_button"
-            android:text="Görev Değiştir"
-            android:textColor="#ffffff" />
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical">
 
+                <Button
+                    android:id="@+id/detail_verilen_gorev_sil"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/red_rounded_button"
+                    android:text="Görevi Kapat"
+                    android:textColor="#ffffff" />
+
+                <Button
+                    android:id="@+id/detail_verilen_gorev_degistir"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/rounded_button"
+                    android:text="Görev Değiştir"
+                    android:textColor="#ffffff" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

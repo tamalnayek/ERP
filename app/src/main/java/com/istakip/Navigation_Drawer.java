@@ -162,16 +162,14 @@ public class Navigation_Drawer extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.log_out) {
 
-            preferences = PreferenceManager.getDefaultSharedPreferences(this);
-            editor = preferences.edit();
-            editor.clear().apply();
-
-            etUsername.setText("");
-            etPassword.setText("");
-            finish();
+         //   preferences = PreferenceManager.getDefaultSharedPreferences(this);
+         //   editor = preferences.edit();
+         //   editor.clear().apply();
+            moveTaskToBack(true);
+            //finish();
             // getFragmentManager().popBackStack();
             // System.exit(0);
-            startActivity(new Intent(getApplicationContext(), LoginScreen.class));
+            //startActivity(new Intent(getApplicationContext(), LoginScreen.class));
             return true;
         }
 
